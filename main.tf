@@ -11,10 +11,6 @@ resource "aws_launch_configuration" "vault-server" {
 
   user_data = "${data.template_file.vault.rendered}"
 
-  lifecycle {
-    create_before_destroy = true
-  }
-
   security_groups = [
     "${module.vault_service.this_security_group_id}",
     "${module.consul_service.this_security_group_id}",

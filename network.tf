@@ -33,7 +33,7 @@ module "vault_service" {
   ingress_with_cidr_blocks = [
     {
       from_port   = 8200
-      to_port     = 8200
+      to_port     = 8201
       protocol    = "tcp"
       description = "Vault-Server"
       cidr_blocks = "0.0.0.0/0"

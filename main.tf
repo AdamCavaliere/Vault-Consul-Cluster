@@ -7,8 +7,9 @@ resource "aws_launch_configuration" "vault-server" {
   image_id             = "ami-08323d326a7d4bca6"
   instance_type        = "t2.small"
   key_name             = "AZC"
-  iam_instance_profile = "${var.instance_profile}"
-  user_data            = "${data.template_file.vault.rendered}"
+  iam_instance_profile = "${aws_iam_instance_profile.hashistack.id}"
+
+  user_data = "${data.template_file.vault.rendered}"
 
   lifecycle {
     create_before_destroy = true
@@ -16,6 +17,7 @@ resource "aws_launch_configuration" "vault-server" {
 
   security_groups = [
     "${module.vault_service.this_security_group_id}",
+    "${module.consul_service.this_security_group_id}",
   ]
 }
 
@@ -65,7 +67,7 @@ resource "aws_launch_configuration" "consul-server" {
   instance_type        = "t2.small"
   key_name             = "AZC"
   user_data            = "${data.template_file.consul.rendered}"
-  iam_instance_profile = "${var.instance_profile}"
+  iam_instance_profile = "${aws_iam_instance_profile.hashistack.id}"
 
   lifecycle {
     create_before_destroy = true
@@ -73,6 +75,7 @@ resource "aws_launch_configuration" "consul-server" {
 
   security_groups = [
     "${module.vault_service.this_security_group_id}",
+    "${module.consul_service.this_security_group_id}",
   ]
 }
 

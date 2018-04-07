@@ -42,7 +42,7 @@ cat <<EOF >> /etc/consul.d/consul.json
   "client_addr": "0.0.0.0",
   "log_level": "INFO",
   "ui": true,
-  "retry_join": ["provider=aws tag_key=Environment-Name tag_value=${environment_name}"]
+  "retry_join": ["provider=aws tag_key=environment_name tag_value=${environment_name}"]
 }
 EOF
 chown consul:consul /etc/consul.d/consul.json

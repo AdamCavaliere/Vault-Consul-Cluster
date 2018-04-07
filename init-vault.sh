@@ -45,7 +45,7 @@ EOF
 
 sudo chmod 0664 /etc/systemd/system/vault*
 
-systemctl daemon-reload
+
 
 rm -f /etc/consul.d/consul-default.json
 rm -f /etc/consul.d/consul-server.json
@@ -59,7 +59,7 @@ cat <<EOF >> /etc/consul.d/consul.json
   "data_dir": "/opt/consul/data",
   "client_addr": "0.0.0.0",
   "log_level": "INFO",
-  "retry_join": ["provider=aws tag_key=Environment-Name tag_value=${environment_name}"]
+  "retry_join": ["provider=aws tag_key=environment_name tag_value=${environment_name}"]
 }
 EOF
 chown consul:consul /etc/consul.d/consul.json

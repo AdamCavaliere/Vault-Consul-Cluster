@@ -53,12 +53,6 @@ resource "aws_autoscaling_group" "vault_servers" {
     value               = "-1"
     propagate_at_launch = true
   }
-
-  tag {
-    key                 = "environment_name"
-    value               = "${var.environment_name}"
-    propagate_at_launch = true
-  }
 }
 
 resource "aws_launch_configuration" "consul-server" {
@@ -82,7 +76,7 @@ resource "aws_launch_configuration" "consul-server" {
 resource "aws_autoscaling_group" "consul_servers" {
   name                 = "consul_servers"
   launch_configuration = "${aws_launch_configuration.consul-server.name}"
-  vpc_zone_identifier  = ["${module.vpc.public_subnets}"]
+  vpc_zone_identifier  = ["${module.vpc.private_subnets}"]
 
   lifecycle {
     create_before_destroy = true
@@ -109,6 +103,12 @@ resource "aws_autoscaling_group" "consul_servers" {
   tag {
     key                 = "TTL"
     value               = "-1"
+    propagate_at_launch = true
+  }
+
+  tag {
+    key                 = "environment_name"
+    value               = "${var.environment_name}"
     propagate_at_launch = true
   }
 }

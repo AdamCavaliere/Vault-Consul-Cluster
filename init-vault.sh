@@ -7,6 +7,7 @@ new_hostname="vault-$${instance_id}"
 
 # stop consul and nomad so they can be configured correctly
 systemctl stop vault
+systemctl stop consul
 
 # clear the consul and nomad data directory ready for a fresh start
 rm -rf /opt/consul/data/*
@@ -22,8 +23,7 @@ sudo sed -i '1s/^/nameserver 127.0.0.1\n/' /etc/resolv.conf
 # seeing failed nodes listed  in consul members with their solo config
 # try a 2 min sleep to see if it helps with all instances wiping data
 # in a similar time window
-sleep 120
-
+sleep 60
 
 cat << EOF > /etc/systemd/system/vault.service
 [Unit]
@@ -45,7 +45,7 @@ EOF
 
 sudo chmod 0664 /etc/systemd/system/vault*
 
-
+systemctl daemon-reload
 
 rm -f /etc/consul.d/consul-default.json
 rm -f /etc/consul.d/consul-server.json

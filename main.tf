@@ -3,11 +3,12 @@ provider "aws" {
 }
 
 resource "aws_launch_configuration" "vault-server" {
-  name          = "vault-server"
-  image_id      = "ami-08323d326a7d4bca6"
-  instance_type = "t2.small"
-  key_name      = "AZC"
-  user_data     = "${data.template_file.vault.rendered}"
+  name                 = "vault-server"
+  image_id             = "ami-08323d326a7d4bca6"
+  instance_type        = "t2.small"
+  key_name             = "AZC"
+  iam_instance_profile = "${var.instance_profile}"
+  user_data            = "${data.template_file.vault.rendered}"
 
   lifecycle {
     create_before_destroy = true
@@ -59,11 +60,12 @@ resource "aws_autoscaling_group" "vault_servers" {
 }
 
 resource "aws_launch_configuration" "consul-server" {
-  name          = "consul-server"
-  image_id      = "ami-02b5dfa7ff74e7215"
-  instance_type = "t2.small"
-  key_name      = "AZC"
-  user_data     = "${data.template_file.consul.rendered}"
+  name                 = "consul-server"
+  image_id             = "ami-02b5dfa7ff74e7215"
+  instance_type        = "t2.small"
+  key_name             = "AZC"
+  user_data            = "${data.template_file.consul.rendered}"
+  iam_instance_profile = "${var.instance_profile}"
 
   lifecycle {
     create_before_destroy = true

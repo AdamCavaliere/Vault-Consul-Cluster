@@ -12,3 +12,8 @@ variable "environment_name" {
   description = "base name of environment"
   default     = "notSet"
 }
+
+variable "avail_zones" {
+  description = "availability zones to deploy into"
+  list        = []
+}

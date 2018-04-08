@@ -2,6 +2,7 @@ provider "aws" {
   region = "${var.region}"
 }
 
+
 resource "aws_launch_configuration" "vault-server" {
   name                 = "vault-server"
   image_id             = "ami-08323d326a7d4bca6"
@@ -27,7 +28,7 @@ resource "aws_autoscaling_group" "vault_servers" {
   default_cooldown     = 30
   force_delete         = true
   depends_on           = ["aws_autoscaling_group.consul_servers"]
-
+load_balancers= ["${aws_elb.vault_elb.id}"]
   lifecycle {
     create_before_destroy = true
   }

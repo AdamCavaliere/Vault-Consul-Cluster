@@ -1,7 +1,8 @@
+#Main VPC for the configuration
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  name = "VaultCluster VPC"
+  name = "VaultCluster VPC - ${var.environment_name}"
   cidr = "10.0.0.0/16"
 
   azs             = ["us-east-2a", "us-east-2b", "us-east-2c"]
@@ -20,38 +21,41 @@ module "vpc" {
   }
 }
 
-module "vault_service" {
-  source = "terraform-aws-modules/security-group/aws"
-
-  name        = "vault-service"
-  description = "vault services"
-  vpc_id      = "${module.vpc.vpc_id}"
-
-  ingress_cidr_blocks = ["0.0.0.0/0"]
-  ingress_rules       = ["ssh-tcp", "consul-webui-tcp"]
-
-  ingress_with_cidr_blocks = [
-    {
-      from_port   = 8200
-      to_port     = 8201
-      protocol    = "tcp"
-      description = "Vault-Server"
-      cidr_blocks = "0.0.0.0/0"
-    },
-  ]
-
-  egress_rules = ["all-all"]
+resource "aws_elb" "vault_elb" {
+  name = "${var.environment_name}"
+  subnets = ["${module.vpc.public_subnets}"]
+  security_groups = ["${module.vault_service.this_security_group_id}"]
+  listener {
+    instance_port = 8200
+    instance_protocol = "http"
+    lb_port = 8200
+    lb_protocol = "http"
+  }
+  health_check {
+    healthy_threshold = 2
+    unhealthy_threshold = 2
+    timeout = 3
+    target = "TCP:8200"
+    interval = 30
+  }
+  cross_zone_load_balancing = true
+  idle_timeout = 400
+  connection_draining = true
+  connection_draining_timeout = 400
+  tags {
+    Name = "${var.environment_name}"
+  }
 }
 
-module "consul_service" {
-  source = "terraform-aws-modules/security-group/aws"
+data "aws_route53_zone" "selected" {
+  name         = "spacelyspacesprockets.info."
+}
 
-  name        = "consul-service"
-  description = "consul services"
-  vpc_id      = "${module.vpc.vpc_id}"
+resource "aws_route53_record" "www" {
+  zone_id = "${data.aws_route53_zone.selected.zone_id}"
+  name    = "vaultcluster-${var.environment_name}.spacelyspacesprockets.info"
+  type    = "CNAME"
+  ttl     = "300"
+  records = ["${aws_elb.vault_elb.dns_name}"]
 
-  ingress_cidr_blocks = ["10.0.0.0/16"]
-  ingress_rules       = ["consul-dns-tcp", "consul-dns-udp", "consul-serf-lan-tcp", "consul-serf-lan-udp", "consul-tcp"]
-
-  egress_rules = ["all-all"]
 }

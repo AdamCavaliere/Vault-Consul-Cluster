@@ -49,6 +49,7 @@ systemctl daemon-reload
 
 rm -f /etc/consul.d/consul-default.json
 rm -f /etc/consul.d/consul-server.json
+rm -f /etc/vault.d/
 
 cat <<EOF >> /etc/consul.d/consul.json
 {

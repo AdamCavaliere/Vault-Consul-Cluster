@@ -15,5 +15,5 @@ variable "environment_name" {
 
 variable "avail_zones" {
   description = "availability zones to deploy into"
-  list        = []
+  type        = "list"
 }

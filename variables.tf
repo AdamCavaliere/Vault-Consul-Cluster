@@ -17,3 +17,11 @@ variable "avail_zones" {
   description = "availability zones to deploy into"
   type        = "list"
 }
+
+variable "vault_ami" {
+  description = "Vault AMI Image"
+}
+
+variable "consul_ami" {
+  description = "Consul AMI Image"
+}

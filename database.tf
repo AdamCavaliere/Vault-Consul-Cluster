@@ -9,7 +9,7 @@ resource "aws_db_instance" "example" {
   password               = "temppass"
   parameter_group_name   = "default.mysql5.7"
   vpc_security_group_ids = ["${module.mysql_service.this_security_group_id}"]
-  db_subnet_group_name   = "${aws_db_subnet_group.private.id}"
+  db_subnet_group_name   = "${aws_db_subnet_group.private.name}"
 }
 
 resource "aws_db_subnet_group" "private" {
@@ -17,6 +17,6 @@ resource "aws_db_subnet_group" "private" {
   subnet_ids = ["${module.vpc.private_subnets}"]
 
   tags {
-    Name = "My DB subnet group"
+    Name = "ConsulAndDB"
   }
 }

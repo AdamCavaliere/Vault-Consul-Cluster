@@ -35,3 +35,16 @@ module "consul_service" {
 
   egress_rules = ["all-all"]
 }
+
+module "mysql_service" {
+  source = "terraform-aws-modules/security-group/aws"
+
+  name        = "mysql-service"
+  description = "mysql services"
+  vpc_id      = "${module.vpc.vpc_id}"
+
+  ingress_cidr_blocks = ["10.0.0.0/16"]
+  ingress_rules       = ["mysql-tcp"]
+
+  egress_rules = ["all-all"]
+}

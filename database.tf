@@ -1,4 +1,4 @@
-resource "aws_db_instance" "default" {
+resource "aws_db_instance" "example" {
   allocated_storage    = 10
   storage_type         = "gp2"
   engine               = "mysql"

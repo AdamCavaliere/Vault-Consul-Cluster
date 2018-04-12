@@ -10,7 +10,6 @@ variable "cluster_size" {
 
 variable "environment_name" {
   description = "base name of environment"
-  default     = "notSet"
 }
 
 variable "avail_zones" {

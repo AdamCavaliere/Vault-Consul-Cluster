@@ -9,7 +9,7 @@
     "consul_version": "{{ env `CONSUL_VERSION` }}",
     "consul_release": "{{ env `CONSUL_RELEASE` }}",
     "consul_ent_url": "{{ env `CONSUL_ENT_URL` }}",
-    "timestamp": "{{isotime "2006.0102.1504"}}",
+    "timestamp": "{{isotime}}",
     "distribution": "{{ env `DISTRIBUTION` }}"
   },
   "builders": [
@@ -157,14 +157,16 @@
       "inline": [
         "bash /tmp/shared/scripts/cleanup.sh"
       ]
-    }
+    },
     {
             "execute_command": "echo 'ubuntu' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
             "type": "shell",
             "environment_vars": [
               "TIMESTAMP={{ user `timestamp` }}"
             ],
-            "inline": ["printf  "{\n\"node_meta\": { \"cluster_version\": \"$TIMESTAMP\"}\n}" > /etc/consul.d/version.json"]
+            "inline": [
+                "printf  \"{\n\"node_meta\": { \"cluster_version\": \"$TIMESTAMP\"}\n}\" > /etc/consul.d/version.json"
+             ]
     },
   ]
 }

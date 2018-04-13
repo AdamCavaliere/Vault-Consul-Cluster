@@ -21,9 +21,9 @@ resource "aws_autoscaling_group" "vault_servers" {
   name                 = "vault_servers"
   launch_configuration = "${aws_launch_configuration.vault-server.name}"
   vpc_zone_identifier  = ["${module.vpc.public_subnets}"]
-  min_size             = "${var.cluster_size}"
-  max_size             = "${var.cluster_size}"
-  desired_capacity     = "${var.cluster_size}"
+  min_size             = "${var.vault_cluster_size}"
+  max_size             = "${var.vault_cluster_size}"
+  desired_capacity     = "${var.vault_cluster_size}"
   default_cooldown     = 30
   force_delete         = true
   depends_on           = ["aws_autoscaling_group.consul_servers"]
@@ -79,9 +79,9 @@ resource "aws_autoscaling_group" "consul_servers" {
     create_before_destroy = true
   }
 
-  min_size         = "${var.cluster_size}"
-  max_size         = "${var.cluster_size}"
-  desired_capacity = "${var.cluster_size}"
+  min_size         = "${var.consul_cluster_size}"
+  max_size         = "${var.consul_cluster_size}"
+  desired_capacity = "${var.consul_cluster_size}"
   default_cooldown = 30
   force_delete     = true
 

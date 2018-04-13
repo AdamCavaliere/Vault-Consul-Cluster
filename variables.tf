@@ -3,8 +3,13 @@ variable "region" {
   default     = "us-east-2"
 }
 
-variable "cluster_size" {
-  description = "Size of cluster"
+variable "consul_cluster_size" {
+  description = "Size of consul cluster"
+  default     = 3
+}
+
+variable "vault_cluster_size" {
+  description = "Size of vault cluster"
   default     = 3
 }
 

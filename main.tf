@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_launch_configuration" "vault-server" {
-  name                 = "vault-server"
+  name                 = "vault-server-"
   image_id             = "${var.vault_ami}"
   instance_type        = "t2.small"
   key_name             = "AZC"
@@ -15,6 +15,10 @@ resource "aws_launch_configuration" "vault-server" {
     "${module.vault_service.this_security_group_id}",
     "${module.consul_service.this_security_group_id}",
   ]
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_autoscaling_group" "vault_servers" {
@@ -50,10 +54,14 @@ resource "aws_autoscaling_group" "vault_servers" {
     value               = "-1"
     propagate_at_launch = true
   }
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_launch_configuration" "consul-server" {
-  name                 = "consul-server"
+  name                 = "consul-server-"
   image_id             = "${var.consul_ami}"
   instance_type        = "t2.small"
   key_name             = "AZC"
@@ -68,6 +76,10 @@ resource "aws_launch_configuration" "consul-server" {
     "${module.vault_service.this_security_group_id}",
     "${module.consul_service.this_security_group_id}",
   ]
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_autoscaling_group" "consul_servers" {
@@ -107,5 +119,9 @@ resource "aws_autoscaling_group" "consul_servers" {
     key                 = "environment_name"
     value               = "${var.environment_name}"
     propagate_at_launch = true
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 }

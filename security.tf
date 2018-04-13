@@ -7,7 +7,7 @@ module "vault_service" {
   vpc_id      = "${module.vpc.vpc_id}"
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
-  ingress_rules       = ["ssh-tcp"]
+  ingress_rules       = ["ssh-tcp","consul-webui-tcp"]
 
   ingress_with_cidr_blocks = [
     {

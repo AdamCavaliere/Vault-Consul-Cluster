@@ -33,10 +33,6 @@ resource "aws_autoscaling_group" "vault_servers" {
   depends_on           = ["aws_autoscaling_group.consul_servers"]
   load_balancers       = ["${aws_elb.vault_elb.id}"]
 
-  lifecycle {
-    create_before_destroy = true
-  }
-
   tag {
     key                 = "Name"
     value               = "Vault Server"
@@ -68,10 +64,6 @@ resource "aws_launch_configuration" "consul-server" {
   user_data            = "${data.template_file.consul.rendered}"
   iam_instance_profile = "${aws_iam_instance_profile.hashistack.id}"
 
-  lifecycle {
-    create_before_destroy = true
-  }
-
   security_groups = [
     "${module.vault_service.this_security_group_id}",
     "${module.consul_service.this_security_group_id}",
@@ -86,10 +78,6 @@ resource "aws_autoscaling_group" "consul_servers" {
   name                 = "consul_servers"
   launch_configuration = "${aws_launch_configuration.consul-server.name}"
   vpc_zone_identifier  = ["${module.vpc.private_subnets}"]
-
-  lifecycle {
-    create_before_destroy = true
-  }
 
   min_size         = "${var.consul_cluster_size}"
   max_size         = "${var.consul_cluster_size}"

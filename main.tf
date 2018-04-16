@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "${var.region}"
-}
-
 resource "aws_launch_configuration" "vault-server" {
   name_prefix          = "vault-server-"
   image_id             = "${var.vault_ami}"

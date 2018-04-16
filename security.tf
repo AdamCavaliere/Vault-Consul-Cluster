@@ -7,7 +7,7 @@ module "vault_service" {
   vpc_id      = "${module.vpc.vpc_id}"
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
-  ingress_rules       = ["ssh-tcp","consul-webui-tcp"]
+  ingress_rules       = ["ssh-tcp", "consul-webui-tcp"]
 
   ingress_with_cidr_blocks = [
     {
@@ -47,4 +47,17 @@ module "mysql_service" {
   ingress_rules       = ["mysql-tcp"]
 
   egress_rules = ["all-all"]
+}
+
+provider "vault" {}
+
+data "vault_aws_access_credentials" "aws_creds" {
+  backend = "aws"
+  role    = "azc-role"
+}
+
+provider "aws" {
+  access_key = "${data.vault_aws_access_credentials.aws_creds.access_key}"
+  secret_key = "${data.vault_aws_access_credentials.aws_creds.secret_key}"
+  region     = "${var.region}"
 }

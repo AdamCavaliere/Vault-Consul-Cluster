@@ -14,6 +14,7 @@ module "vpc" {
   enable_dns_hostnames               = true
   propagate_public_route_tables_vgw  = true
   propagate_private_route_tables_vgw = true
+  single_nat_gateway                 = true
 
   tags = {
     Terraform   = "true"

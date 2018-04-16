@@ -27,7 +27,7 @@ logger "/usr/local/bin/consul --version: $(/usr/local/bin/consul --version)"
 logger "Configuring consul ${CONSUL_VERSION}"
 sudo cp /tmp/consul/config/* /etc/consul.d/
 VAULT_BUILD=$(date '+%Y%m%d%H%M%S')
-cat <<EOF >> /etc/consul.d/version.json 
+sudo cat <<EOF | sudo tee /etc/consul.d/version.json 
 {
 "node_meta": {"cluster_version": "$VAULT_BUILD"}
 }

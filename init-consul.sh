@@ -31,29 +31,13 @@ systemctl daemon-reload
 rm -f /etc/consul.d/consul-default.json
 rm -f /etc/consul.d/consul-server.json
 
-{
-
-
-  "datacenter": "${local_region}",
-  "server": true,
-  "bootstrap_expect": ${cluster_size},
-  "leave_on_terminate": true,
-  "advertise_addr": "$${local_ipv4}",
-  "data_dir": "/opt/consul/data",
-  "client_addr": "0.0.0.0",
-  "log_level": "INFO",
-  "ui": true,
-  "retry_join": ["provider=aws tag_key=environment_name tag_value=${environment_name}"]
-
-}
 
 cat <<EOF >> /etc/consul.d/consul.json
 {
-  "raft_protocol": 3,
   "autopilot": { "cleanup_dead_servers": true },
   "datacenter": "${local_region}",
-  "server": true,
   "bootstrap_expect": ${cluster_size},
+  "server": true,
   "leave_on_terminate": true,
   "advertise_addr": "$${local_ipv4}",
   "data_dir": "/opt/consul/data",
@@ -66,3 +50,4 @@ EOF
 chown consul:consul /etc/consul.d/consul.json
 # start consul once it is configured correctly
 systemctl start consul
+

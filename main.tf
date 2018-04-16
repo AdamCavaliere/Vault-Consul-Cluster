@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_launch_configuration" "vault-server" {
-  name                 = "vault-server-"
+  name_prefix          = "vault-server-"
   image_id             = "${var.vault_ami}"
   instance_type        = "t2.small"
   key_name             = "AZC"
@@ -57,7 +57,7 @@ resource "aws_autoscaling_group" "vault_servers" {
 }
 
 resource "aws_launch_configuration" "consul-server" {
-  name                 = "consul-server-"
+  name_prefix          = "consul-server-"
   image_id             = "${var.consul_ami}"
   instance_type        = "t2.small"
   key_name             = "AZC"

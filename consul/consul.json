@@ -38,7 +38,7 @@
       "ssh_timeout": "10m",
       "ami_virtualization_type": "hvm",
       "ami_description": "HashiCorp Consul Server {{ user `consul_version` }}",
-      "ami_name": "{{ user `environment` }}-consul-server-{{ user `consul_release` }}-{{ user `distribution` }}-Ubuntu_16.04",
+      "ami_name": "{{ user `environment` }}-consul-build-{{ user `timestamp` }}-Ubuntu_16.04",
       "tags": {
         "Name": "Consul Server {{ user `consul_version` }}",
         "System": "Consul",
@@ -97,14 +97,6 @@
       "only": ["amazon-ebs-ubuntu-16.04-systemd"],
       "inline": [
         "bash /tmp/consul/scripts/install-consul-systemd.sh"
-      ]
-    },
-    {
-      "type": "shell",
-      "only": ["amazon-ebs-ubuntu-16.04-systemd"],
-      "inline": [
-        "cd /tmp/shared/scripts/ && bash /tmp/shared/scripts/setup-testing.sh",
-        "cd /tmp && rake consul:spec"
       ]
     },
     {

@@ -5,7 +5,7 @@ local_ipv4="$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)"
 public_ipv4="$(curl -s http://169.254.169.254/latest/meta-data/public-ipv4)"
 new_hostname="vault-$${instance_id}"
 
-# stop consul and nomad so they can be configured correctly
+# stop consul and vault so they can be configured correctly
 systemctl stop vault
 systemctl stop consul
 
@@ -25,7 +25,7 @@ sudo sed -i '1s/^/nameserver 127.0.0.1\n/' /etc/resolv.conf
 # in a similar time window
 sleep 60
 
-cat << EOF > /etc/systemd/system/vault.service
+cat <<EOF > /etc/systemd/system/vault.service
 [Unit]
 Description=Vault Agent
 Requires=consul-online.target
@@ -66,7 +66,7 @@ EOF
 
 cat <<EOF > /etc/vault.d/auto_unseal.hcl
 seal "awskms" {
-  aws_region = "${local_region}"
+  region = "${local_region}"
   access_key = "${access_key}"
   secret_key = "${secret_key}"
   kms_key_id = "${kms_key_id}"
@@ -81,3 +81,4 @@ systemctl start consul
 # todo: support TLS in hashistack and pass in {vault_use_tls} once available
 # start vault once it is configured correctly
 systemctl start vault
+

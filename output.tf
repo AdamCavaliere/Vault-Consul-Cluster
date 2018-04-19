@@ -5,3 +5,7 @@ output "db_address" {
 output "db_port" {
   value = "${aws_db_instance.example.port}"
 }
+
+output "vault_url" {
+  value = "${aws_route53_record.www.name}"
+}

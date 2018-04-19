@@ -24,3 +24,13 @@ data "template_file" "vault" {
     kms_key_id       = "${data.vault_generic_secret.aws_stuff.data["kms_key_id"]}"
   }
 }
+
+data "template_file" "consul-agent" {
+  template = "${file("${path.module}/init-consul-agent.sh")}"
+
+  vars = {
+    cluster_size     = "${var.consul_cluster_size}"
+    environment_name = "${var.environment_name}"
+    local_region     = "${var.region}"
+  }
+}

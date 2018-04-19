@@ -109,3 +109,24 @@ resource "aws_autoscaling_group" "consul_servers" {
     create_before_destroy = true
   }
 }
+
+resource "aws_instance" "bastion_host" {
+  ami                         = "${var.consul_ami}"
+  instance_type               = "t2.micro"
+  key_name                    = "AZC"
+  user_data                   = "${data.template_file.consul-agent.rendered}"
+  iam_instance_profile        = "${aws_iam_instance_profile.hashistack.id}"
+  subnet_id                   = "${element(module.vpc.public_subnets, 0)}"
+  associate_public_ip_address = true
+
+  security_groups = [
+    "${module.vault_service.this_security_group_id}",
+    "${module.consul_service.this_security_group_id}",
+  ]
+
+  tags {
+    Name  = "HelloWorld"
+    owner = "Adam"
+    ttl   = "5h"
+  }
+}

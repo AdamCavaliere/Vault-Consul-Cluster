@@ -63,6 +63,16 @@ cat <<EOF >> /etc/consul.d/consul.json
   "retry_join": ["provider=aws tag_key=environment_name tag_value=${environment_name}"]
 }
 EOF
+
+cat <<EOF > /etc/vault.d/auto_unseal.hcl
+seal "awskms" {
+  aws_region = "${local_region}"
+  access_key = "${access_key}"
+  secret_key = "${secret_key}"
+  kms_key_id = "${kms_key_id}"
+}
+EOF
+chown vault:vault /etc/vault.d/auto_unseal.hcl
 chown consul:consul /etc/consul.d/consul.json
 # start consul once it is configured correctly
 systemctl start consul

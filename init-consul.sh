@@ -34,7 +34,10 @@ rm -f /etc/consul.d/consul-server.json
 
 cat <<EOF >> /etc/consul.d/consul.json
 {
-  "autopilot": { "cleanup_dead_servers": true },
+  "autopilot": { 
+    "cleanup_dead_servers": true 
+    "UpgradeVersionTag": "cluster_version"
+  },
   "datacenter": "${local_region}",
   "bootstrap_expect": ${cluster_size},
   "server": true,

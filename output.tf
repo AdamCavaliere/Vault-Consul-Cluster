@@ -10,10 +10,6 @@ output "vault_url" {
   value = "${aws_route53_record.www.name}"
 }
 
-output "ip_addresses" {
-  value = "${data.aws_instances.vault_servers.public_ips}"
-}
-
 resource "vault_generic_secret" "vault_output" {
   path = "secret/cluster_details"
 

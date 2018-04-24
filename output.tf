@@ -14,12 +14,6 @@ output "ip_addresses" {
   value = "${data.aws_instances.vault_servers.public_ips}"
 }
 
-data "aws_instances" "vault_servers" {
-  instance_tags {
-    Name = "Vault Server"
-  }
-}
-
 resource "vault_generic_secret" "vault_output" {
   path = "secret/cluster_details"
 

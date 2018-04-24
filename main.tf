@@ -125,7 +125,7 @@ resource "aws_instance" "bastion_host" {
   ]
 
   tags {
-    Name  = "HelloWorld"
+    Name  = "BastionHost"
     owner = "Adam"
     ttl   = "5h"
   }

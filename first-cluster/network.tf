@@ -6,8 +6,8 @@ module "vpc" {
   cidr            = "10.0.0.0/16"
   subnet_count    = "${var.cluster == "Secondary" ? 3 : 1}"
   azs             = ["${var.avail_zones}"]
-  private_subnets = ["10.0.${0 + subnet_count}.0/24", "10.0.${1 + subnet_count}.0/24", "10.0.${2 + subnet_count}.0/24"]
-  public_subnets  = ["10.0.${100 + subnet_count}.0/24", "10.0.${101 + subnet_count}.0/24", "10.0.${102 + subnet_count}.0/24"]
+  private_subnets = ["10.0.${0 + var.subnet_count}.0/24", "10.0.${1 + var.subnet_count}.0/24", "10.0.${2 + var.subnet_count}.0/24"]
+  public_subnets  = ["10.0.${100 + var.subnet_count}.0/24", "10.0.${101 + var.subnet_count}.0/24", "10.0.${102 + var.subnet_count}.0/24"]
 
   enable_nat_gateway                 = true
   enable_vpn_gateway                 = false

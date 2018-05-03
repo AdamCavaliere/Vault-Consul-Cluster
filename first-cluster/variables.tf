@@ -29,3 +29,13 @@ variable "vault_ami" {
 variable "consul_ami" {
   description = "Consul AMI Image"
 }
+
+variable "cluster" {
+  description = "Primary or Secondary Cluster"
+  default     = "Primary"
+}
+
+variable "primary_workspace" {
+  description = "Required to be set with workspace name if this is the secondary"
+  default     = "notSet"
+}

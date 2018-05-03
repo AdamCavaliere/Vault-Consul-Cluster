@@ -10,8 +10,8 @@ module "vpc" {
   name            = "VaultCluster VPC - ${var.environment_name}"
   cidr            = "10.0.0.0/16"
   azs             = ["${var.avail_zones}"]
-  private_subnets = ["10.0.${0 + locals.subnet_count}.0/24", "10.0.${1 + locals.subnet_count}.0/24", "10.0.${2 + locals.subnet_count}.0/24"]
-  public_subnets  = ["10.0.${100 + locals.subnet_count}.0/24", "10.0.${101 + locals.subnet_count}.0/24", "10.0.${102 + locals.subnet_count}.0/24"]
+  private_subnets = ["10.0.${0 + local.subnet_count}.0/24", "10.0.${1 + local.subnet_count}.0/24", "10.0.${2 + local.subnet_count}.0/24"]
+  public_subnets  = ["10.0.${100 + local.subnet_count}.0/24", "10.0.${101 + local.subnet_count}.0/24", "10.0.${102 + local.subnet_count}.0/24"]
 
   enable_nat_gateway                 = true
   enable_vpn_gateway                 = false

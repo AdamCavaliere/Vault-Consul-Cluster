@@ -3,15 +3,11 @@
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
-  locals {
-    subnet_count = "${var.cluster == "Secondary" ? 1 : 3}"
-  }
-
   name            = "VaultCluster VPC - ${var.environment_name}"
   cidr            = "10.0.0.0/16"
   azs             = ["${var.avail_zones}"]
-  private_subnets = ["10.0.${0 + local.subnet_count}.0/24", "10.0.${1 + local.subnet_count}.0/24", "10.0.${2 + local.subnet_count}.0/24"]
-  public_subnets  = ["10.0.${100 + local.subnet_count}.0/24", "10.0.${101 + local.subnet_count}.0/24", "10.0.${102 + local.subnet_count}.0/24"]
+  private_subnets = ["10.0.${var.cluster == "Secondary" ? 3 : 0}.0/24", "10.0.${var.cluster == "Secondary" ? 4 : 1}.0/24", "10.0.${var.cluster == "Secondary" ? 5 : 2}.0/24"]
+  public_subnets  = ["10.0.${var.cluster == "Secondary" ? 103 : 100}.0/24", "10.0.${var.cluster == "Secondary" ? 104 : 101}.0/24", "10.0.${var.cluster == "Secondary" ? 105 : 102}.0/24"]
 
   enable_nat_gateway                 = true
   enable_vpn_gateway                 = false

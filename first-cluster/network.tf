@@ -1,7 +1,4 @@
 #Main VPC for the configuration
-resource "null_resource" "subnet_count" {
-  subnet_count = "${var.cluster == "Secondary" ? 1 : 3}"
-}
 
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"

@@ -72,7 +72,12 @@ seal "awskms" {
   kms_key_id = "${kms_key_id}"
 }
 EOF
+
+cat <<EOF > /etc/vault.d/vault_api_addr.hcl
+api_addr = "http://${lb_addr}:8200"
+EOF
 chown vault:vault /etc/vault.d/auto_unseal.hcl
+chown vault:vault /etc/vault.d/vault_api_addr.hcl
 chown consul:consul /etc/consul.d/consul.json
 # start consul once it is configured correctly
 systemctl start consul

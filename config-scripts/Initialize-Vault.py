@@ -46,7 +46,7 @@ database_read_creds = {
 
 r = requests.put(vault_url + "/v1/sys/init", data=json.dumps(payload_init))
 data = json.loads(r.text)
-
+print r.text
 root_toke =  data['root_token']
 os.system("export VAULT_TOKEN=" + root_toke)
 print "Initializing Vault"

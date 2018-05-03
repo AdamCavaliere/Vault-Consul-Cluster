@@ -42,4 +42,5 @@ variable "primary_workspace" {
 
 variable "subnet_count" {
   description = "Number to use for creating subnets"
+  default     = 1
 }

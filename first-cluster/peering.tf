@@ -7,7 +7,7 @@ data "terraform_remote_state" "primary_vault" {
   }
 }
 
-resource "aws_vpc_peering_connection" "foo" {
+"${var.cluster == "Secondary" ? 1 : 3}" resource "aws_vpc_peering_connection" "foo" {
   count = "${var.cluster == "Secondary" ? 1 : 0}"
 
   peer_vpc_id = "${data.terraform_remote_state.primary_vault.vpc_id}"

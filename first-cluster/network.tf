@@ -1,11 +1,11 @@
 #Main VPC for the configuration
 
-locals {
-  subnet_count = "${var.cluster == "Secondary" ? 1 : 3}"
-}
-
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
+
+  locals {
+    subnet_count = "${var.cluster == "Secondary" ? 1 : 3}"
+  }
 
   name            = "VaultCluster VPC - ${var.environment_name}"
   cidr            = "10.0.0.0/16"

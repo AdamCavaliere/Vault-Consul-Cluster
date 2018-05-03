@@ -39,3 +39,7 @@ variable "primary_workspace" {
   description = "Required to be set with workspace name if this is the secondary"
   default     = "notSet"
 }
+
+variable "subnet_count" {
+  description = "Number to use for creating subnets"
+}

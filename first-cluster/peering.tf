@@ -13,7 +13,6 @@ resource "aws_vpc_peering_connection" "foo" {
   peer_vpc_id = "${data.terraform_remote_state.primary_vault.vpc_id}"
   vpc_id      = "${module.vpc.vpc_id}"
   peer_region = "us-west-2"
-  auto_accept = true
 
   accepter {
     allow_remote_vpc_dns_resolution = true

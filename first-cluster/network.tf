@@ -6,8 +6,8 @@ module "vpc" {
   name            = "VaultCluster VPC - ${var.environment_name}"
   cidr            = "10.${var.cluster == "Secondary" ? 1 : 0}.0.0/16"
   azs             = ["${var.avail_zones}"]
-  private_subnets = ["10.${var.cluster == "Secondary" ? 1.3 : 0.0}.0/24", "10.${var.cluster == "Secondary" ? 1.4 : 0.1}.0/24", "10.${var.cluster == "Secondary" ? 1.5 : 0.2}.0/24"]
-  public_subnets  = ["10.${var.cluster == "Secondary" ? 1.103 : 0.100}.0/24", "10.${var.cluster == "Secondary" ? 1.104 : 0.101}.0/24", "10.${var.cluster == "Secondary" ? 1.105 : 0.102}.0/24"]
+  private_subnets = ["10.${var.cluster == "Secondary" ? "1.3" : "0.0"}.0/24", "10.${var.cluster == "Secondary" ? "1.4" : "0.1"}.0/24", "10.${var.cluster == "Secondary" ? "1.5" : "0.2"}.0/24"]
+  public_subnets  = ["10.${var.cluster == "Secondary" ? "1.103" : "0.100"}.0/24", "10.${var.cluster == "Secondary" ? "1.104" : "0.101"}.0/24", "10.${var.cluster == "Secondary" ? "1.105" : "0.102"}.0/24"]
 
   enable_nat_gateway                 = true
   enable_vpn_gateway                 = false

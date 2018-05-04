@@ -30,7 +30,7 @@ module "consul_service" {
   description = "consul services"
   vpc_id      = "${module.vpc.vpc_id}"
 
-  ingress_cidr_blocks = ["10.0.0.0/16"]
+  ingress_cidr_blocks = ["${var.cluster == "Secondary" ? "10.1.0.0/16" : "10.0.0.0/16"}"]
   ingress_rules       = ["consul-dns-tcp", "consul-dns-udp", "consul-serf-lan-tcp", "consul-serf-lan-udp", "consul-tcp"]
 
   egress_rules = ["all-all"]

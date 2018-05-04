@@ -1,4 +1,5 @@
 resource "aws_db_instance" "example" {
+  count                  = "${var.cluster == "Primary" ? 1 : 0}"
   allocated_storage      = 10
   storage_type           = "gp2"
   engine                 = "mysql"
@@ -14,6 +15,7 @@ resource "aws_db_instance" "example" {
 }
 
 resource "aws_db_subnet_group" "private" {
+  count      = "${var.cluster == "Primary" ? 1 : 0}"
   name       = "main"
   subnet_ids = ["${module.vpc.private_subnets}"]
 

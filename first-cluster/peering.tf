@@ -8,12 +8,6 @@ data "terraform_remote_state" "primary_vault" {
 }
 
 provider "aws" {
-  region = "us-east-2"
-
-  # Requester's credentials.
-}
-
-provider "aws" {
   alias  = "peer"
   region = "us-west-2"
 

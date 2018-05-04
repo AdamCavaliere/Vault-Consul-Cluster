@@ -23,6 +23,7 @@ data "template_file" "vault" {
     access_key       = "${data.vault_generic_secret.aws_stuff.data["access_key"]}"
     secret_key       = "${data.vault_generic_secret.aws_stuff.data["secret_key"]}"
     kms_key_id       = "${data.vault_generic_secret.aws_stuff.data["kms_key_id"]}"
+    kms_key_region   = "${data.vault_generic_secret.aws_stuff.data["kms_key_region"]}"
   }
 }
 

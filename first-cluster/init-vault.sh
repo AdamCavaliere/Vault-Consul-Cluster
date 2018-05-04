@@ -66,7 +66,7 @@ EOF
 
 cat <<EOF > /etc/vault.d/auto_unseal.hcl
 seal "awskms" {
-  region = "${local_region}"
+  region = "${kms_key_region}"
   access_key = "${access_key}"
   secret_key = "${secret_key}"
   kms_key_id = "${kms_key_id}"

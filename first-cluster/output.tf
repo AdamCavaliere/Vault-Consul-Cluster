@@ -11,8 +11,7 @@ resource "vault_generic_secret" "vault_output" {
 
   data_json = <<EOT
 {
-  "cluster_address": "${aws_route53_record.www.name}",
-  "db_address": "${aws_db_instance.example.address}"
+  "cluster_address": "${aws_route53_record.www.name}"
 }
 EOT
 }

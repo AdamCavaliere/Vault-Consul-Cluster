@@ -7,15 +7,6 @@ data "terraform_remote_state" "primary_vault" {
   }
 }
 
-resource "aws_vpc" "main" {
-  cidr_block = "10.1.0.0/16"
-}
-
-resource "aws_vpc" "peer" {
-  provider   = "aws.peer"
-  cidr_block = "10.0.0.0/16"
-}
-
 # Requester's side of the connection.
 resource "aws_vpc_peering_connection" "peer" {
   vpc_id      = "${module.vpc.vpc_id}"

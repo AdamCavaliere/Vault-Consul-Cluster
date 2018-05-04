@@ -4,7 +4,7 @@ module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
 
   name            = "VaultCluster VPC - ${var.environment_name}"
-  cidr            = "10.0.0.0/16"
+  cidr            = "10.${var.cluster == "Secondary" ? 1 : 0}.0.0/16"
   azs             = ["${var.avail_zones}"]
   private_subnets = ["10.0.${var.cluster == "Secondary" ? 3 : 0}.0/24", "10.0.${var.cluster == "Secondary" ? 4 : 1}.0/24", "10.0.${var.cluster == "Secondary" ? 5 : 2}.0/24"]
   public_subnets  = ["10.0.${var.cluster == "Secondary" ? 103 : 100}.0/24", "10.0.${var.cluster == "Secondary" ? 104 : 101}.0/24", "10.0.${var.cluster == "Secondary" ? 105 : 102}.0/24"]

@@ -8,24 +8,12 @@ data "terraform_remote_state" "primary_vault" {
 }
 
 provider "aws" {
-  count      = "${var.cluster == "Secondary" ? 1 : 0}"
   alias      = "peer"
   region     = "us-east-2"
   access_key = "${data.vault_generic_secret.aws_stuff.data["access_key"]}"
   secret_key = "${data.vault_generic_secret.aws_stuff.data["secret_key"]}"
 
   # Accepter's credentials.
-}
-
-resource "aws_vpc" "main" {
-  count      = "${var.cluster == "Secondary" ? 1 : 0}"
-  cidr_block = "10.0.0.0/16"
-}
-
-resource "aws_vpc" "peer" {
-  count      = "${var.cluster == "Secondary" ? 1 : 0}"
-  provider   = "aws.peer"
-  cidr_block = "10.1.0.0/16"
 }
 
 data "aws_caller_identity" "peer" {

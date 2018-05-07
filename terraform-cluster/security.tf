@@ -56,6 +56,10 @@ provider "vault" {}
 #  role    = "azc-role"
 #}
 
+data "vault_generic_secret" "aws_stuff" {
+  path = "${var.aws_secrets}"
+}
+
 provider "aws" {
   access_key = "${data.vault_generic_secret.aws_stuff.data["access_key"]}"
   secret_key = "${data.vault_generic_secret.aws_stuff.data["secret_key"]}"

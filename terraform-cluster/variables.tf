@@ -44,3 +44,13 @@ variable "subnet_count" {
   description = "Number to use for creating subnets"
   default     = 1
 }
+
+variable "aws_secrets" {
+  description = "Vault path of secrets used throughout this project"
+  default     = "secret/aws/azc"
+}
+
+variable "root_domain" {
+  description = "Base FQDN of domain"
+  default     = "securekeyval.site"
+}

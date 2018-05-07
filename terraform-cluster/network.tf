@@ -53,12 +53,12 @@ resource "aws_elb" "vault_elb" {
 }
 
 data "aws_route53_zone" "selected" {
-  name = "spacelyspacesprockets.info."
+  name = "${var.root_domain}."
 }
 
 resource "aws_route53_record" "www" {
   zone_id = "${data.aws_route53_zone.selected.zone_id}"
-  name    = "vaultcluster-${var.environment_name}.spacelyspacesprockets.info"
+  name    = "${var.environment_name}.${var.root_domain}"
   type    = "CNAME"
   ttl     = "300"
   records = ["${aws_elb.vault_elb.dns_name}"]

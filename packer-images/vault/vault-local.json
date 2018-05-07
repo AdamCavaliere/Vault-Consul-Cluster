@@ -16,43 +16,6 @@
   },
   "builders": [
     {
-      "name": "amazon-ebs-rhel-7.3-systemd",
-      "type": "amazon-ebs",
-      "access_key": "{{ user `aws_access_key_id` }}",
-      "secret_key": "{{ user `aws_secret_access_key` }}",
-      "region": "{{ user `aws_region` }}",
-      "spot_price_auto_product": "Linux/UNIX (Amazon VPC)",
-      "force_deregister": true,
-      "force_delete_snapshot": true,
-      "ssh_pty": true,
-      "instance_type": "t2.medium",
-      "associate_public_ip_address": true,
-      "source_ami_filter": {
-        "filters": {
-          "virtualization-type": "hvm",
-          "name": "*RHEL-7.3_HVM_GA-*",
-          "root-device-type": "ebs"
-        },
-        "owners": ["309956199498"],
-        "most_recent": true
-      },
-      "ssh_username": "ec2-user",
-      "ssh_timeout": "5m",
-      "ami_virtualization_type": "hvm",
-      "ami_description": "HashiCorp Vault Server {{ user `vault_version` }}",
-      "ami_name": "{{ user `environment` }}-vault-server-{{ user `vault_release` }}-{{ user `distribution` }}-RHEL_7.3",
-      "tags": {
-        "Name": "Vault Server {{ user `vault_version` }}",
-        "System": "Vault",
-        "Product": "Vault",
-        "Environment": "{{ user `environment` }}",
-        "Built-By": "{{ user `vcs_name` }}",
-        "Product-Version": "{{ user `vault_version` }}",
-        "OS": "RHEL",
-        "OS-Version": "7.3"
-      }
-    },
-    {
       "name": "amazon-ebs-ubuntu-16.04-systemd",
       "type": "amazon-ebs",
       "access_key": "{{ user `aws_access_key_id` }}",
@@ -104,7 +67,7 @@
     },
     {
       "type": "shell",
-      "only": ["amazon-ebs-rhel-7.3-systemd", "amazon-ebs-ubuntu-16.04-systemd"],
+      "only": ["amazon-ebs-ubuntu-16.04-systemd"],
       "inline": [
         "bash /tmp/shared/scripts/base-aws.sh"
       ]
@@ -133,7 +96,7 @@
     },
     {
       "type": "shell",
-      "only": ["amazon-ebs-rhel-7.3-systemd", "amazon-ebs-ubuntu-16.04-systemd"],
+      "only": ["amazon-ebs-ubuntu-16.04-systemd"],
       "inline": [
         "bash /tmp/consul/scripts/install-consul-systemd.sh"
       ]
@@ -157,27 +120,19 @@
         "URL={{ user `vault_ent_url` }}"
       ],
       "inline": [
-        "bash /tmp/vault/scripts/install-vault.sh"
+        "bash /tmp/vault/scripts/install-vault-local.sh"
       ]
     },
     {
       "type": "shell",
-      "only": ["amazon-ebs-rhel-7.3-systemd", "amazon-ebs-ubuntu-16.04-systemd"],
+      "only": ["amazon-ebs-ubuntu-16.04-systemd"],
       "inline": [
         "bash /tmp/vault/scripts/install-vault-systemd.sh"
       ]
     },
     {
       "type": "shell",
-      "only": ["amazon-ebs-rhel-7.3-systemd", "amazon-ebs-ubuntu-16.04-systemd"],
-      "inline": [
-        "cd /tmp/shared/scripts/ && bash /tmp/shared/scripts/setup-testing.sh",
-        "cd /tmp && rake vault:spec"
-      ]
-    },
-    {
-      "type": "shell",
-      "only": ["amazon-ebs-rhel-7.3-systemd", "amazon-ebs-ubuntu-16.04-systemd"],
+      "only": ["amazon-ebs-ubuntu-16.04-systemd"],
       "inline": [
         "bash /tmp/shared/scripts/cleanup-aws.sh"
       ]

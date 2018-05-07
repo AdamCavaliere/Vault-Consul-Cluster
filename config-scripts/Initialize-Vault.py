@@ -54,7 +54,7 @@ print "Command run:"
 print "vault operator init -stored-shares=1 -recovery-shares=1 -recovery-threshold=1 -key-shares=1 -key-threshold=1"
 print "Root Token: " + root_toke
 print ""
-client.write('secret/cluster_token', root_toke=root_toke)
+client.write('secret/east_cluster_token', root_toke=root_toke)
 x = raw_input('Don\'t forget to reboot your instances! ')
 headers = {'X-Vault-Token': root_toke}
 license_r = requests.put(vault_url+"/v1/sys/license",headers=headers, data=license_payload)

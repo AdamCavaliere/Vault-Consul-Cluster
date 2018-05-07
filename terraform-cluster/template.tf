@@ -1,7 +1,3 @@
-data "vault_generic_secret" "aws_stuff" {
-  path = "secret/aws/azc"
-}
-
 data "template_file" "consul" {
   template = "${file("${path.module}/init-consul.sh")}"
 

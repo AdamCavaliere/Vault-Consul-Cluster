@@ -36,16 +36,18 @@ export CONSUL_VERSION=1.0.7
 export VAULT_VERSION=0.10.1
 ```
 
-From the root directory where you cloned the repo: `cd packer-images/vault/`
-
-`packer build vault.json`
-
+From the root directory where you cloned the repo: 
+```sh
+cd packer-images/vault/
+packer build vault.json
+```
 *Copy the AMI ID for later use.*
 
 ### Consul AMI Config:
 ```sh
 cd ../consul
-packer build consul.json```
+packer build consul.json
+```
 
 *Copy the AMI ID for later use.*
 

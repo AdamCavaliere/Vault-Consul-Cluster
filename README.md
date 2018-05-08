@@ -37,7 +37,8 @@ Through these steps, we'll need to make sure these data items are provided:
 
 ### Consul Vault Config:
 
-```export CONSUL_ENT_URL=https://s3.amazonaws.com/binaries-azc/consul-enterprise_1.0.7%2Bent_linux_amd64.zip
+```
+export CONSUL_ENT_URL=https://s3.amazonaws.com/binaries-azc/consul-enterprise_1.0.7%2Bent_linux_amd64.zip
 export VAULT_ENT_URL=https://s3.amazonaws.com/binaries-azc/vault-enterprise_0.10.1%2Bent_linux_amd64.zip
 export AWS_REGION=us-east-2
 export CONSUL_VERSION=1.0.7

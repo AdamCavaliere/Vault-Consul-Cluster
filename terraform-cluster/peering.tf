@@ -52,15 +52,14 @@ resource "aws_vpc_peering_connection_accepter" "peer" {
 # Create a route
 resource "aws_route" "r-p" {
   count                     = "${var.cluster == "Secondary" ? 1 : 0}"
-  route_table_id            = "${module.vpc.public_route_table_ids}"
+  route_table_id            = "${element(module.vpc.public_route_table_ids, 0)}"
   destination_cidr_block    = "10.0.0.0/16"
   vpc_peering_connection_id = "${aws_vpc_peering_connection.peer.id}"
 }
 
-#resource "aws_route" "r-s" {
-#  count                     = "${var.cluster == "Secondary" ? 1 : 0}"
-#  route_table_id            = "${aws_route_table.rt-s.id}"
-#  destination_cidr_block    = "${data.aws_vpc_peering_connection.secondaryvpc.peer_cidr_block}"
-#  vpc_peering_connection_id = "${data.aws_vpc_peering_connection.secondaryvpc.id}"
-#}
-
+resource "aws_route" "r-s" {
+  count                     = "${var.cluster == "Secondary" ? 1 : 0}"
+  route_table_id            = "${element(data.terraform_remote_state.primary_vault.pub_route_table_id,0)}"
+  destination_cidr_block    = "10.1.0.0/16"
+  vpc_peering_connection_id = "${aws_vpc_peering_connection.peer.id}"
+}

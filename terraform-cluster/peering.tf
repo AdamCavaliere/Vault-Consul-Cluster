@@ -72,14 +72,14 @@ resource "aws_route_table" "rt-s" {
 }
 
 # Create a route
-resource "aws_route" "r" {
+resource "aws_route" "r-p" {
   count                     = "${var.cluster == "Secondary" ? 1 : 0}"
   route_table_id            = "${aws_route_table.rt-p.id}"
   destination_cidr_block    = "${data.aws_vpc_peering_connection.primaryvpc.peer_cidr_block}"
   vpc_peering_connection_id = "${data.aws_vpc_peering_connection.primaryvpc.id}"
 }
 
-resource "aws_route" "r" {
+resource "aws_route" "r-s" {
   count                     = "${var.cluster == "Secondary" ? 1 : 0}"
   route_table_id            = "${aws_route_table.rt-s.id}"
   destination_cidr_block    = "${data.aws_vpc_peering_connection.secondaryvpc.peer_cidr_block}"

@@ -23,6 +23,14 @@ _Paragraph describing the proposed solution._
 
 ## Steps
 
+Through these steps, we'll need to make sure these data items are provided:
+* Consul AMI:
+* Vault AMI:
+* AWS KEY ID:
+* AWS SECRET KEY:
+* KMS KEY ID
+
+
 ## Step 1: Setup your AMI Images
 
 ##Build Your AMIs - Consul & Vault
@@ -65,3 +73,52 @@ Define Key Usage Permission - Choose the key which vault will use to access this
 Copy the Key ID after it is created.
 
 E.g.: c1636bfe-08ef-4ca9-9002-41a37eb39fac
+
+#### EC2 Keys - Ensure you have keys created to be specified in your Terraform Variables - these keys will be used for SSH access to the vault and consul servers.
+
+## Setup First Cluster
+
+### Workspace
+
+Create workspace and point to the appropriate directory: `terraform-cluster`
+
+### Assign all of the appropriate variables
+
+```
+region: us-east-2
+consul_cluster_size: 3
+vault_cluster_size: 3
+environment_name: VaultEast-[CustomName]
+avail_zones: ["us-east-2a","us-east-2b","us-east-2c"]
+vault_ami: ami-abced
+consul_ami: ami-xyz
+cluster: Primary
+subnet_count: 1
+aws_secrets: 
+root_domain: securekeyvault.site
+
+```
+## Setup Second Cluster
+
+### Copy AMIs 
+Copy the two AMI instances you created to the other region you are going to target.
+
+*Write down the AMI IDs to be used in the Secondary Cluster Configuration*
+
+### Secondary Cluster Configuration
+
+```
+region: us-west-2
+consul_cluster_size: 3
+vault_cluster_size: 3
+environment_name: VaultWest-[CustomName] <-- *Make sure to Change*
+avail_zones: ["us-west-2a","us-west-2b","us-west-2c"]
+vault_ami: ami-abced1
+consul_ami: ami-xyz1
+cluster: Secondary
+subnet_count: 3
+aws_secrets: 
+root_domain: securekeyvault.site
+primary_workspace: VaultEast-[CustomName]
+tfe_org: azc
+```

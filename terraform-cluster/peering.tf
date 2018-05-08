@@ -59,6 +59,7 @@ resource "aws_route" "r-p" {
 
 resource "aws_route" "r-s" {
   count                     = "${var.cluster == "Secondary" ? 1 : 0}"
+  provider                  = "aws.peer"
   route_table_id            = "${element(data.terraform_remote_state.primary_vault.pub_route_table_id,0)}"
   destination_cidr_block    = "10.1.0.0/16"
   vpc_peering_connection_id = "${aws_vpc_peering_connection.peer.id}"

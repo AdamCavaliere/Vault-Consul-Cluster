@@ -15,7 +15,7 @@ data "template_file" "vault" {
     cluster_size     = "${var.vault_cluster_size}"
     environment_name = "${var.environment_name}"
     local_region     = "${var.region}"
-    lb_addr          = "${aws_route53_record.www.name}"
+    lb_addr          = "${var.root_domain == "notSet" ? aws_elb.vault_elb.dns_name : aws_route53_record.www.name}"
     access_key       = "${data.vault_generic_secret.aws_stuff.data["access_key"]}"
     secret_key       = "${data.vault_generic_secret.aws_stuff.data["secret_key"]}"
     kms_key_id       = "${data.vault_generic_secret.aws_stuff.data["kms_key_id"]}"

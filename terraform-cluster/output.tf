@@ -1,5 +1,5 @@
 output "vault_url" {
-  value = "${aws_route53_record.www.name}"
+  value = "${var.root_domain == "notSet" ? aws_elb.vault_elb.dns_name : aws_route53_record.www.name}"
 }
 
 output "vpc_id" {

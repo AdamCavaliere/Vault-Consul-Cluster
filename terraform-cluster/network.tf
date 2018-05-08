@@ -53,14 +53,15 @@ resource "aws_elb" "vault_elb" {
 }
 
 data "aws_route53_zone" "selected" {
-  name = "${var.root_domain}."
+  count = "${var.root_domain == "notSet" ? 0 : 1}"
+  name  = "${var.root_domain}."
 }
 
 resource "aws_route53_record" "www" {
+  count   = "${var.root_domain == "notSet" ? 0 : 1}"
   zone_id = "${data.aws_route53_zone.selected.zone_id}"
   name    = "${var.environment_name}.${var.root_domain}"
   type    = "CNAME"
   ttl     = "300"
   records = ["${aws_elb.vault_elb.dns_name}"]
 }
-

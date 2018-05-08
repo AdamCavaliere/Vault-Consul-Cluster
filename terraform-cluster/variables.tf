@@ -52,5 +52,10 @@ variable "aws_secrets" {
 
 variable "root_domain" {
   description = "Base FQDN of domain"
-  default     = "securekeyval.site"
+  default     = "notSet"
+}
+
+variable "key_name" {
+  description = "EC2 Keys"
+  default     = "AZC"
 }

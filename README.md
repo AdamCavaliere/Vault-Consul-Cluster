@@ -33,7 +33,8 @@ _Paragraph describing the proposed solution._
 export VAULT_ENT_URL=https://s3.amazonaws.com/binaries-azc/vault-enterprise_0.10.1%2Bent_linux_amd64.zip
 export AWS_REGION=us-east-2
 export CONSUL_VERSION=1.0.7
-export VAULT_VERSION=0.10.1```
+export VAULT_VERSION=0.10.1
+```
 
 From the root directory where you cloned the repo: `cd packer-images/vault/`
 

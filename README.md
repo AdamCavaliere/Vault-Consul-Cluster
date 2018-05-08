@@ -1,24 +1,40 @@
-# _Guide Template_
+# Vault Enterprise Terraform Deploy
 
-_Summary of pain point/challenge/business case and goal of the guide in 2 paragraphs._
+This guide will cover a multitude of deployment solutions for an Enterprise install of Vault:
+ 
+ Utilizes Packer to build the images, and Terraform to lay down all of the infrastructure.
+ 
+ Two Vault Clusters:
+ * Vault Cluster - Auto-scaling Group
+ * Consul Cluster - Auto-scaling Group
+ 
+ Vault Enterprise Features:
+ * KMS Auto-Unseal
+ * Performance Replication
+
+ Consul Features:
+ * Auto-Pilot
+
+ Terraform Enterprise:
+ * Utilizes remote state of Primary Cluster
+
+ AWS Specific Features:
+ * Creates a Peer Connection between Regions and configures appropriate routing.
+
 
 ## Reference Material
 - _[Any relevant reference material that will help the user better understand the use case being solved for]()_
 
 ## Estimated Time to Complete
-_A rough estimate of time it would take a beginner to read the guide and complete the steps. The assumption is that they completed the prerequisites._
-
-## Personas
-_Paragraph describing the personas involved in the challenge and solution._
-
-## Challenge
-_Paragraph describing the challenge._
+30 Minutes
 
 ## Solution
 _Paragraph describing the proposed solution._
 
 ## Prerequisites
-- Create EC2 Keys in the Regions you will be deploying.
+- Have Packer on your system
+- Clone this repo onto your machine for utilizing the Packer build files.
+- Create EC2 Keys in the Regions you will be deploying to.
 - Have AWS Access keys ready to go
 
 ## Steps
@@ -38,8 +54,10 @@ Through these steps, we'll need to make sure these data items are provided:
 ### Consul Vault Config:
 
 ```
+export AWS_ACCESS_KEY_ID=
+export AWS_SECRET_ACCESS_KEY=
 export CONSUL_ENT_URL=https://s3.amazonaws.com/binaries-azc/consul-enterprise_1.0.7%2Bent_linux_amd64.zip
-export VAULT_ENT_URL=https://s3.amazonaws.com/binaries-azc/vault-enterprise_0.10.1%2Bent_linux_amd64.zip
+export VAULT_ENT_URL=https://s3.amazonaws.com/binaries-azc/vault-enterprise_0.10.1%2Bprem_linux_amd64.zip
 export AWS_REGION=us-east-2
 export CONSUL_VERSION=1.0.7
 export VAULT_VERSION=0.10.1

@@ -75,6 +75,7 @@ EOF
 
 cat <<EOF > /etc/vault.d/vault_api_addr.hcl
 api_addr = "http://${lb_addr}:8200"
+cluster_addr = "http://${lb_addr}:8201"
 EOF
 chown vault:vault /etc/vault.d/auto_unseal.hcl
 chown vault:vault /etc/vault.d/vault_api_addr.hcl

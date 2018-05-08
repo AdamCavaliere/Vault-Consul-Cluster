@@ -12,6 +12,9 @@ VAULT_VERSION="${VERSION}"
 VAULT_ZIP="vault_${VAULT_VERSION}_linux_amd64.zip"
 VAULT_URL=${URL:-"https://releases.hashicorp.com/vault/${VAULT_VERSION}/${VAULT_ZIP}"}
 
+sudo mkdir /opt/vault
+sudo chown vault:vault /opt/vault
+
 logger "Downloading vault ${VAULT_VERSION}"
 [200 -ne $(curl --write-out %{http_code} --silent --output /tmp/${VAULT_ZIP} ${VAULT_URL})] && exit 1
 

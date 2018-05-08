@@ -53,7 +53,7 @@ resource "aws_vpc_peering_connection_accepter" "peer" {
 resource "aws_route" "r-p" {
   count                     = "${var.cluster == "Secondary" ? 1 : 0}"
   route_table_id            = "${module.vpc.public_route_table_ids}"
-  destination_cidr_block    = "${aws_vpc_peering_connection.peer.peer_cidr_block}"
+  destination_cidr_block    = "10.0.0.0/16"
   vpc_peering_connection_id = "${aws_vpc_peering_connection.peer.id}"
 }
 

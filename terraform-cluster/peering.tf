@@ -3,7 +3,7 @@ data "terraform_remote_state" "primary_vault" {
   backend = "atlas"
 
   config {
-    name = "azc/${var.primary_workspace}"
+    name = "${var.tfe_org}/${var.primary_workspace}"
   }
 }
 

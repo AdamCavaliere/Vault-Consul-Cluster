@@ -59,3 +59,8 @@ variable "key_name" {
   description = "EC2 Keys"
   default     = "AZC"
 }
+
+variable "tfe_org" {
+  description = "ORG that contains your remote state"
+  default     = "azc"
+}

@@ -18,7 +18,7 @@ resource "aws_launch_configuration" "vault-server" {
 }
 
 resource "aws_autoscaling_group" "vault_servers" {
-  name                 = "vault_servers"
+  name                 = "vault_servers-${var.environment_name}"
   launch_configuration = "${aws_launch_configuration.vault-server.name}"
   vpc_zone_identifier  = ["${module.vpc.public_subnets}"]
   min_size             = "${var.vault_cluster_size}"
@@ -71,7 +71,7 @@ resource "aws_launch_configuration" "consul-server" {
 }
 
 resource "aws_autoscaling_group" "consul_servers" {
-  name                 = "consul_servers"
+  name                 = "consul_servers-${var.environment_name}"
   launch_configuration = "${aws_launch_configuration.consul-server.name}"
   vpc_zone_identifier  = ["${module.vpc.private_subnets}"]
 

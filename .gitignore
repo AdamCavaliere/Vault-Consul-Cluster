@@ -6,7 +6,6 @@
 .terraform/
 temp
 terraform
-*.hcl
 setup.sh
 setup-mysql.sh
 setup.py

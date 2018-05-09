@@ -117,7 +117,7 @@ vault_ami: ami-abced
 consul_ami: ami-xyz
 cluster: Primary
 root_domain: securekeyvault.site <-- Custom value or don't set it
-key_name: EC2 Keys
+key_name: EC2 Key
 tfe_org: azc
 
 ```
@@ -148,6 +148,7 @@ consul_ami: ami-xyz1
 cluster: Secondary
 root_domain: securekeyvault.site Custom value or don't set it
 primary_workspace: VaultEast-[CustomName]
+key_name: EC2 Key
 tfe_org: azc
 ```
 

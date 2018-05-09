@@ -42,7 +42,7 @@ print "Root Token: " + root_toke
 print ""
 #client.write('secret/east_cluster_token', root_toke=root_toke)
 x = raw_input('Reboot your Vault Servers - Hit Enter after you\'ve done so... ')
-print "/nexport VAULT_ADDR=http://" + vault_fqdn + ":8200"
+print "export VAULT_ADDR=http://" + vault_fqdn + ":8200"
 print "export VAULT_TOKEN=" + root_toke
 #time.sleep(60)
 #client = hvac.Client(url='http://'+vault_fqdn+':8200', token=root_toke)

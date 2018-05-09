@@ -10,8 +10,8 @@ data "terraform_remote_state" "primary_vault" {
 provider "aws" {
   alias      = "peer"
   region     = "us-east-2"
-  access_key = "${data.vault_generic_secret.aws_stuff.data["access_key"]}"
-  secret_key = "${data.vault_generic_secret.aws_stuff.data["secret_key"]}"
+  access_key = "${var.access_key}"
+  secret_key = "${var.secret_key}"
 
   # Accepter's credentials.
 }

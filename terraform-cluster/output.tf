@@ -15,7 +15,7 @@ resource "vault_generic_secret" "vault_output" {
 
   data_json = <<EOT
 {
-  "cluster_address": "${aws_route53_record.www.name}"
+  "cluster_address": "${var.root_domain == "notSet" ? aws_elb.vault_elb.dns_name : join(" ",aws_route53_record.www.*.name)}"
 }
 EOT
 }

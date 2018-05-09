@@ -117,6 +117,8 @@ vault_ami: ami-abced
 consul_ami: ami-xyz
 cluster: Primary
 root_domain: securekeyvault.site <-- Custom value or don't set it
+key_name: EC2 Keys
+tfe_org: azc
 
 ```
 

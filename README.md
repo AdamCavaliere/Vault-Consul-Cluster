@@ -117,6 +117,9 @@ aws_secrets:
 root_domain: securekeyvault.site
 
 ```
+
+Save Plan & Apply
+
 ## Setup Second Cluster
 
 ### Copy AMIs 
@@ -141,3 +144,78 @@ root_domain: securekeyvault.site
 primary_workspace: VaultEast-[CustomName]
 tfe_org: azc
 ```
+
+After the first workspace is completed being built, Save and Apply
+
+## Step 2 - Setup Vault Clusters
+
+### Initialize Primary Cluster
+
+On *Terminal 1*
+
+From root directory:
+```sh
+cd config-scripts
+python Initialize-Vault.py -fqdn URL.From.TFE.Output
+```
+
+*Copy the Root Token for future use.*
+
+At this point Vault is initialized and setup to use the AWS-KMS for unsealing.
+
+ * Follow instructions in the script (Reboot all 3 Vault Servers)
+ * Press Enter
+ * Copy the 2 export commands and execute them
+
+### Initialize Secondary Cluster
+
+On *Terminal 2*
+
+From root directory:
+```sh
+cd config-scripts
+python Initialize-Vault.py -fqdn URL.From.TFE.Output
+```
+
+*Copy the Root Token for future use.*
+
+At this point Vault is initialized and setup to use the AWS-KMS for unsealing.
+
+ * Follow instructions in the script (Reboot all 3 Vault Servers)
+ * Press Enter
+ * Copy the 2 export commands and execute them
+
+## Step 3 - Configure Replication
+
+### Setup Replication on Primary
+
+Run this command on *Terminal 1*:
+
+`vault write -f sys/replication/performance/primary/enable`
+
+After a small amount of time, run this command on *Terminal 1*:
+
+`vault write sys/replication/performance/primary/secondary-token id=1`
+
+Copy the *wrapping_token* for later use.
+
+### Setup Replication on Secondary
+
+Run this command on *Terminal 2*:
+
+`vault write sys/replication/performance/secondary/enable token=[wrapping_token]`
+
+At this point, replication is fully configured between the two clusters. 
+
+## Step 4 - Test Replication
+
+### Write a secret
+*Terminal 1*
+
+`vault write secret/replTest hello=world`
+
+### Read a secret
+*Terminal 2*
+
+`vault read secret/replTest`
+

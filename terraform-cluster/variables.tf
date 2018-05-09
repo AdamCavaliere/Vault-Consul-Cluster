@@ -64,3 +64,19 @@ variable "tfe_org" {
   description = "ORG that contains your remote state"
   default     = "azc"
 }
+
+variable "access_key" {
+  description = "AWS Access Key"
+}
+
+variable "secret_key" {
+  description = "AWS Secret Key"
+}
+
+variable "kms_key_id" {
+  description = "KMS Key ID for Auto Unseal"
+}
+
+variable "kms_key_region" {
+  description = "Region the KMS key is located"
+}

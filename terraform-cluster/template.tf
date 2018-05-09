@@ -16,10 +16,10 @@ data "template_file" "vault" {
     environment_name = "${var.environment_name}"
     local_region     = "${var.region}"
     lb_addr          = "${var.root_domain == "notSet" ? aws_elb.vault_elb.dns_name : join(" ",aws_route53_record.www.*.name)}"
-    access_key       = "${data.vault_generic_secret.aws_stuff.data["access_key"]}"
-    secret_key       = "${data.vault_generic_secret.aws_stuff.data["secret_key"]}"
-    kms_key_id       = "${data.vault_generic_secret.aws_stuff.data["kms_key_id"]}"
-    kms_key_region   = "${data.vault_generic_secret.aws_stuff.data["kms_key_region"]}"
+    access_key       = "${var.access_key}"
+    secret_key       = "${var.secret_key}"
+    kms_key_id       = "${var.kms_key_id}"
+    kms_key_region   = "${var.kms_key_region}"
   }
 }
 

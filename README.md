@@ -219,10 +219,27 @@ At this point, replication is fully configured between the two clusters.
 ### Write a secret
 *Terminal 1*
 
-`vault write secret/replTest hello=world`
+```sh
+echo '
+path "*" {
+    capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}' | vault policy-write vault-admin -
+vault auth-enable userpass
+vault write auth/userpass/users/vault password=vault policies=vault-admin
+
+vault write secret/replTest hello=world
+```
 
 ### Read a secret
 *Terminal 2*
 
-`vault read secret/replTest`
+```
+vault login -method=userpass username=vault password=vault
+```
 
+replace your VAULT_TOKEN Env variable with the output
+
+```
+export VAULT_TOKEN=NEW_TOKEN
+vault read secret/replTest
+```

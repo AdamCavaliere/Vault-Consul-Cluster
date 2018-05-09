@@ -51,21 +51,17 @@ module "mysql_service" {
 
 #provider "vault" {}
 
-
 #data "vault_aws_access_credentials" "aws_creds" {
 #  backend = "aws"
 #  role    = "azc-role"
 #}
 
-
 #data "vault_generic_secret" "aws_stuff" {
 #  path = "${var.aws_secrets}"
 #}
 
-
-#provider "aws" {
-#  access_key = "${var.access_key}"
-#  secret_key = "${var.secret_key}"
-#  region     = "${var.region}"
-#}
-
+provider "aws" {
+  access_key = "${var.access_key}"
+  secret_key = "${var.secret_key}"
+  region     = "${var.region}"
+}

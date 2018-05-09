@@ -104,6 +104,10 @@ Create workspace and point to the appropriate directory: `terraform-cluster`
 ### Assign all of the appropriate variables
 
 ```
+access_key: AWS Access Key ID
+secret_key: AWS Secret Key ID
+kms_key_id: Key ID 
+kms_key_region: KMS key location
 region: us-east-2
 consul_cluster_size: 3
 vault_cluster_size: 3
@@ -112,9 +116,7 @@ avail_zones: ["us-east-2a","us-east-2b","us-east-2c"]
 vault_ami: ami-abced
 consul_ami: ami-xyz
 cluster: Primary
-subnet_count: 1
-aws_secrets: 
-root_domain: securekeyvault.site
+root_domain: securekeyvault.site <-- Custom value or don't set it
 
 ```
 
@@ -130,6 +132,10 @@ Copy the two AMI instances you created to the other region you are going to targ
 ### Secondary Cluster Configuration
 
 ```
+access_key: AWS Access Key ID
+secret_key: AWS Secret Key ID
+kms_key_id: Key ID 
+kms_key_region: KMS key location
 region: us-west-2
 consul_cluster_size: 3
 vault_cluster_size: 3
@@ -138,9 +144,7 @@ avail_zones: ["us-west-2a","us-west-2b","us-west-2c"]
 vault_ami: ami-abced1
 consul_ami: ami-xyz1
 cluster: Secondary
-subnet_count: 3
-aws_secrets: 
-root_domain: securekeyvault.site
+root_domain: securekeyvault.site Custom value or don't set it
 primary_workspace: VaultEast-[CustomName]
 tfe_org: azc
 ```

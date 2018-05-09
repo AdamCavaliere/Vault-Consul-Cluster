@@ -4,7 +4,7 @@ import sys
 import time
 
 #URL To check health of Consul
-ConsulURL = "http://ec2-18-218-78-220.us-east-2.compute.amazonaws.com:8500/v1/operator/autopilot/health"
+ConsulURL = "http://ec2-18-218-78-220.us-east-1.compute.amazonaws.com:8500/v1/operator/autopilot/health"
 
 def pollConsul():
 	r = requests.get(ConsulURL)

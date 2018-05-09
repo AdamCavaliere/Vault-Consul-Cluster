@@ -31,7 +31,7 @@ resource "aws_autoscaling_group" "vault_servers" {
 
   tag {
     key                 = "Name"
-    value               = "Vault Server"
+    value               = "Vault Server ${var.environment_name}"
     propagate_at_launch = true
   }
 
@@ -83,7 +83,7 @@ resource "aws_autoscaling_group" "consul_servers" {
 
   tag {
     key                 = "Name"
-    value               = "Consul Server"
+    value               = "Consul Server ${var.environment_name}"
     propagate_at_launch = true
   }
 

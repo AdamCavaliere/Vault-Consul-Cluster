@@ -56,8 +56,8 @@ Through these steps, we'll need to make sure these data items are provided:
 ```
 export AWS_ACCESS_KEY_ID=
 export AWS_SECRET_ACCESS_KEY=
-export CONSUL_ENT_URL=https://s3.amazonaws.com/binaries-azc/consul-enterprise_1.0.7%2Bent_linux_amd64.zip
-export VAULT_ENT_URL=https://s3.amazonaws.com/binaries-azc/vault-enterprise_0.10.1%2Bprem_linux_amd64.zip
+export CONSUL_ENT_URL=https://s3.amazonaws.com/binaries/consul-enterprise_1.0.7%2Bent_linux_amd64.zip
+export VAULT_ENT_URL=https://s3.amazonaws.com/binaries/vault-enterprise_0.10.1%2Bprem_linux_amd64.zip
 export AWS_REGION=us-east-2
 export CONSUL_VERSION=1.0.7
 export VAULT_VERSION=0.10.1

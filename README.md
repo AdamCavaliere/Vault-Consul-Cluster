@@ -65,6 +65,15 @@ export CONSUL_VERSION=1.0.7
 export VAULT_VERSION=0.10.1
 ```
 
+If you get an error, because you could not acces and download the enterprise bits above, change to the bits that require a license and do the following
+
+- Go to licensing.hashicorp.com and create a license for yourelf for both vault and consul.  See SE Tame Handbook.
+Then
+
+```export VAULT_ENT_URL=https://s3-us-west-2.amazonaws.com/hc-enterprise-binaries/vault/ent/0.10.1/vault-enterprise_0.10.1%2Bent_linux_amd64.zip
+export export CONSUL_ENT_URL=https://s3-us-west-2.amazonaws.com/hc-enterprise-binaries/consul/ent/1.1.0/consul-enterprise_1.1.0%2Bent_linux_amd64.zip
+```
+
 From the root directory where you cloned the repo: 
 ```sh
 cd packer-images/vault/
@@ -175,6 +184,7 @@ sudo pip install hvac
 cd config-scripts
 python Initialize-Vault.py -fqdn URL.From.TFE.Output
 ```
+*Make sure that Initialize-Vault.py has the vault write sys/license code enabled*
 
 *Copy the Root Token for future use.*
 
@@ -183,6 +193,11 @@ At this point Vault is initialized and setup to use the AWS-KMS for unsealing.
  * Follow instructions in the script (Reboot all 3 Vault Servers)
  * Press Enter
  * Copy the 2 export commands and execute them
+
+ Then ssh into Terminal 1 and apply consul license
+ ``` ssh -o StrictHostKeyChecking=no -i <your pem file> -o ubuntu:<public IP of one of the Vault Servers>
+ consul license put "<contents_of_consul_license>"
+```
 
 ### Initialize Secondary Cluster
 
@@ -202,11 +217,18 @@ At this point Vault is initialized and setup to use the AWS-KMS for unsealing.
  * Press Enter
  * Copy the 2 export commands and execute them
 
+ Then ssh into Terminal 1 and apply consul license
+ ``` ssh -o StrictHostKeyChecking=no -i <your pem file> -o ubuntu:<public IP of one of the Vault Servers>
+ consul license put "<contents_of_consul_license>"
+```
+
 ## Step 3 - Configure Replication
 
 ### Setup Replication on Primary
 
 Run this command on *Terminal 1*:
+
+* NOTE: You need to have Vault installed on your Mac or local machine *
 
 `vault write -f sys/replication/performance/primary/enable`
 

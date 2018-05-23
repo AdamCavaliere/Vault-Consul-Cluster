@@ -6,7 +6,7 @@
     "aws_owner": "{{ env `AWS_OWNER` }}",
     "environment": "{{ env `PACKER_ENVIRONMENT` }}",
     "vcs_name": "{{ env `VCS_NAME` }}",
-    "consul_version": "1.0.6",
+    "consul_version": "{{ env `CONSUL_VERSION` }}",
     "consul_release": "{{ env `CONSUL_RELEASE` }}",
     "consul_ent_url": "{{ env `CONSUL_ENT_URL` }}",
     "timestamp": "{{isotime \"2006-01-02-15-04-15\"}}",

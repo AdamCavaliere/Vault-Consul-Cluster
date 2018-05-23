@@ -53,6 +53,8 @@ Through these steps, we'll need to make sure these data items are provided:
 
 ### Consul Vault Config:
 
+_Note: The Consul and Vault URL will only work if your AWS keys has access to those Object Stores_
+
 ```
 export AWS_ACCESS_KEY_ID=
 export AWS_SECRET_ACCESS_KEY=
@@ -160,7 +162,15 @@ After the first workspace is completed being built, Save and Apply
 
 On *Terminal 1*
 
+`export VAULT_LICENSE=<copy the text of your license>`
 From root directory:
+_Note, you may receive an error "Import requests ImportError: No module named requests"_
+_On a mac perform a_
+```sudo easy_install -U requests
+sudo easy_install -U pip
+sudo pip install hvac
+```
+
 ```sh
 cd config-scripts
 python Initialize-Vault.py -fqdn URL.From.TFE.Output

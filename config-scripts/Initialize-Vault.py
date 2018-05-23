@@ -44,11 +44,11 @@ print ""
 x = raw_input('Reboot your Vault Servers - Hit Enter after you\'ve done so... ')
 print "export VAULT_ADDR=http://" + vault_fqdn + ":8200"
 print "export VAULT_TOKEN=" + root_toke
-#time.sleep(60)
-#client = hvac.Client(url='http://'+vault_fqdn+':8200', token=root_toke)
-#value = client.read('sys/license')
-#print value
-#x = raw_input('Ready to Apply License?')
-#client.write('sys/license',text=vault_license)
-#value = client.read('sys/license')
-#print value
+time.sleep(60)
+client = hvac.Client(url='http://'+vault_fqdn+':8200', token=root_toke)
+value = client.read('sys/license')
+print value
+x = raw_input('Ready to Apply License?')
+client.write('sys/license',text=vault_license)
+value = client.read('sys/license')
+print value

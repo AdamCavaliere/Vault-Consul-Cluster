@@ -2,7 +2,7 @@
 module "vault_service" {
   source = "terraform-aws-modules/security-group/aws"
 
-  name        = "vault-service"
+  name        = "vault_service-${var.environment_name}"
   description = "vault services"
   vpc_id      = "${module.vpc.vpc_id}"
 
@@ -26,7 +26,7 @@ module "vault_service" {
 module "consul_service" {
   source = "terraform-aws-modules/security-group/aws"
 
-  name        = "consul-service"
+  name        = "consul_service-${var.environment_name}"
   description = "consul services"
   vpc_id      = "${module.vpc.vpc_id}"
 
@@ -39,7 +39,7 @@ module "consul_service" {
 module "mysql_service" {
   source = "terraform-aws-modules/security-group/aws"
 
-  name        = "mysql-service"
+  name        = "mysql-service-${var.environment_name}"
   description = "mysql services"
   vpc_id      = "${module.vpc.vpc_id}"
 

@@ -70,8 +70,10 @@ If you get an error, because you could not acces and download the enterprise bit
 - Go to licensing.hashicorp.com and create a license for yourelf for both vault and consul.  See SE Tame Handbook.
 Then
 
-```export VAULT_ENT_URL=https://s3-us-west-2.amazonaws.com/hc-enterprise-binaries/vault/ent/0.10.1/vault-enterprise_0.10.1%2Bent_linux_amd64.zip
-export export CONSUL_ENT_URL=https://s3-us-west-2.amazonaws.com/hc-enterprise-binaries/consul/ent/1.1.0/consul-enterprise_1.1.0%2Bent_linux_amd64.zip
+```
+export VAULT_ENT_URL=https://s3-us-west-2.amazonaws.com/hc-enterprise-binaries/vault/ent/0.10.1/vault-enterprise_0.10.1%2Bent_linux_amd64.zip
+
+export CONSUL_ENT_URL=https://s3-us-west-2.amazonaws.com/hc-enterprise-binaries/consul/ent/1.1.0/consul-enterprise_1.1.0%2Bent_linux_amd64.zip
 ```
 
 From the root directory where you cloned the repo: 

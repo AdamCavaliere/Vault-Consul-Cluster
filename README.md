@@ -197,10 +197,11 @@ At this point Vault is initialized and setup to use the AWS-KMS for unsealing.
  * Copy the 2 export commands and execute them
 
  Then ssh into Terminal 1 and apply consul license
+
+
+`ssh -o StrictHostKeyChecking=no -i <your pem file> -o ubuntu:<public IP of one of the Vault Primary Servers>`
  
- ```ssh -o StrictHostKeyChecking=no -i <your pem file> -o ubuntu:<public IP of one of the Vault Servers>
- consul license put "<contents_of_consul_license>"
-```
+ ```consul license put "<contents_of_consul_license>"```
 
 ### Initialize Secondary Cluster
 
@@ -223,9 +224,8 @@ At this point Vault is initialized and setup to use the AWS-KMS for unsealing.
 
  Then ssh into Terminal 2 and apply consul license
 
-```ssh -o StrictHostKeyChecking=no -i <your pem file> -o ubuntu:<public IP of one of the Vault Servers>
- consul license put "<contents_of_consul_license>"
-```
+`ssh -o StrictHostKeyChecking=no -i <your pem file> -o ubuntu:<public IP of one of the Vault Secondary Servers>`
+```consul license put "<contents_of_consul_license>"```
 
 ## Step 3 - Configure Replication
 

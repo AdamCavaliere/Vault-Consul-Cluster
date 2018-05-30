@@ -173,7 +173,6 @@ After the first workspace is completed being built, Save and Apply
 
 On *Terminal 1*
 
-` ssh -v  -o 'StrictHostKeyChecking=no' -i <yourkey> ubuntu@<VaultEast Primary Host>`
 `export VAULT_LICENSE=<copy the text of your license>`
 From root directory:
 _Note, you may receive an error "Import requests ImportError: No module named requests"_
@@ -207,7 +206,7 @@ At this point Vault is initialized and setup to use the AWS-KMS for unsealing.
 On *Terminal 2*
 
 From root directory:
-` ssh -v  -o 'StrictHostKeyChecking=no' -i <yourkey> ubuntu@<VaultWest Secondary Host>`
+
 ```sh
 cd config-scripts
 python Initialize-Vault.py -fqdn URL.From.TFE.Output

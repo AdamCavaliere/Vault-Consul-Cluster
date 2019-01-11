@@ -1,5 +1,5 @@
 resource "aws_launch_configuration" "vault-server" {
-  name_prefix          = "vault-server-"
+  name_prefix          = "vault-server-example"
   image_id             = "${var.vault_ami}"
   instance_type        = "t2.small"
   key_name             = "${var.key_name}"
